@@ -15,11 +15,11 @@ public class Teste {
 		AcordoController acordoController = new AcordoController();
 //		O_TITULOSVELOZ tituloVeloz = new O_TITULOSVELOZ();
 		
-		O_ATUALIZAVELOZ acordosVeloz = new O_ATUALIZAVELOZ();
-
-		ArrayList<STRACORDOSVELOZ> consultaAcordos = acordoController.consultaAcordos();
-		STRACORDOSVELOZ[] acordos = new STRACORDOSVELOZ[consultaAcordos.size()]	;
-        consultaAcordos.toArray(acordos);
+//		O_ATUALIZAVELOZ acordosVeloz = new O_ATUALIZAVELOZ();
+//
+//		ArrayList<STRACORDOSVELOZ> consultaAcordos = acordoController.consultaAcordos();
+//		STRACORDOSVELOZ[] acordos = new STRACORDOSVELOZ[consultaAcordos.size()]	;
+//        consultaAcordos.toArray(acordos);
         
 		//acordosVeloz.setSTRTITULOSVELOZ(acordos);
 		
@@ -28,21 +28,21 @@ public class Teste {
 		
 //		consultaAcordos();
 
-		String xml = acordoController.gerarXML(acordos);
+//		String xml = acordoController.gerarXML(acordos);
 
 //		gerarSoap(xml);
-        System.out.print(xml);
+//        System.out.print(xml);
 //		enviarSoap();
         enviarSoap();	     	     
 	}
 
 	private static void enviarSoap() {
 		SoapChamadas chamada = new SoapChamadas();
-        String targetNameSpace = "http://nfse.el.com.br";
-        String endpointUrl = "http://10.1.1.36:8080/el-nfse-integracao/Nfse";
-        QName serviceName = new QName(targetNameSpace, "Nfse");
-        QName portName = new QName(targetNameSpace, "NfsePort");
-        String SOAPAction = "http://nfse.el.com.br/Contribuinte";
+        String targetNameSpace = "http://protheus_soap/";
+        String endpointUrl = "http://fbh101-011.fieb.org.br:8080/FFIEBW01.apw?WSDL";
+        QName serviceName = new QName(targetNameSpace, "mtdTitulosVeloz");
+        QName portName = new QName(targetNameSpace, "mtdTitulosVeloz");
+        String SOAPAction = "http://protheus_soap/mtdTitulosVeloz";
    	
         SOAPMessage response;
         
