@@ -1,19 +1,16 @@
 package Bean;
 
-import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-
-
 public class STRACORDOSVELOZ {
 
-	String Z06_ACORDO;
-	String Z06_DATA;
-	String Z06_TPPGTO;
-	Float  Z06_VACORD;
-	Float  Z06_VALOR;
-	String Z06_VENCTO;
+	private String Z06_ACORDO;
+	private String Z06_DATA;
+	private String Z06_TPPGTO;
+	private Float  Z06_VACORD;
+	private Float  Z06_VALOR;
+	private String Z06_VENCTO;
 
 	public String getZ06_ACORDO() {
 		return Z06_ACORDO;
@@ -51,17 +48,6 @@ public class STRACORDOSVELOZ {
 	public void setZ06_VENCTO(String z06_VENCTO) {
 		Z06_VENCTO = z06_VENCTO;
 	}
-	
-/*	public class Contato {
-		​ ​
-		@XmlElement(name = "id", required = true)
-		private int id;
-		@XmlElement(name = "nome", required = true)
-		private String nome;
-		@XmlElement(name = "email", required = true)
-		private String email;
-		@XmlElementWrapper(name = "Telefones") @XmlElement(name = "Telefone") private Collection; telefones; @XmlElement(name = "Endereco", required = true) private Endereco endereco;
-	} */
 	
 }
 
