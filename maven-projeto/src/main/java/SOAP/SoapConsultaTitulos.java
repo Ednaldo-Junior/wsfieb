@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.MessageFactory;
@@ -53,8 +52,9 @@ public class SoapConsultaTitulos {
 		}
 	}
 
-	private void respostaConsulta(SOAPMessage soapResponse,String Filial) throws SOAPException, ParserConfigurationException,
-			SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
+	private void respostaConsulta(SOAPMessage soapResponse, String Filial)
+			throws SOAPException, ParserConfigurationException, SAXException, IOException,
+			TransformerFactoryConfigurationError, TransformerException {
 		NodeList list = soapResponse.getSOAPBody().getElementsByTagName("MTDTITULOSVELOZRESULT");
 		NodeList cab = soapResponse.getSOAPBody().getElementsByTagName("STRTITULOSVELOZ").item(0).getChildNodes();
 		String result = "";
@@ -63,7 +63,7 @@ public class SoapConsultaTitulos {
 			if (i != cab.getLength() - 1)
 				result += ";";
 		}
-		result += "\n"; 
+		result += "\n";
 		for (int i = 0; i < list.getLength(); i++) {
 			Node lin = list.item(i);
 			NodeList it = lin.getChildNodes();
@@ -76,28 +76,16 @@ public class SoapConsultaTitulos {
 						result += ";";
 
 				}
-				result += "\n"; 
+				result += "\n";
 			}
 		}
 
-		File file = new File(Config.CAMINHOCSV+"INC_"+Filial+".csv");
+		File file = new File(Config.CAMINHOCSV + "INC_" + Filial + ".csv");
 
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 		bw.write(result);
 		bw.flush();
 		bw.close();
-
-//		File stylesheet = new File("src/main/resources/style.xsl");
-//		
-//		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//		DocumentBuilder builder = factory.newDocumentBuilder();
-//		Document document = builder.parse(result);
-//
-//		StreamSource stylesource = new StreamSource(stylesheet);
-//		Transformer transformer = TransformerFactory.newInstance().newTransformer(stylesource);
-//		Source source = new DOMSource(document);
-//		Result outputTarget = new StreamResult(new File("/tmp/x.csv"));
-//		transformer.transform(source, outputTarget);
 	}
 
 	private static void createSoapEnvelope(SOAPMessage soapMessage, String Filial, String Empresa)

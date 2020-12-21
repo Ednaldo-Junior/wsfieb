@@ -1,6 +1,5 @@
 package SOAP;
 
-import javax.xml.namespace.QName;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPConnection;
@@ -17,7 +16,7 @@ import Bean.STRACORDOSVELOZ;
 import Bean.STRTITACORDVELOZ;
 import Configuracoes.Config;
 
-public class SoapAtualizaTitulos {
+public class SoapEnviaTitulos {
 
 	public void callSoapWebService(String Filial, String Empresa, O_ATUALIZAVELOZ atualizacao) {
 		String soapAction = "http://protheus_soap/mtdAtualizaVeloz";
@@ -27,7 +26,8 @@ public class SoapAtualizaTitulos {
 			SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
 			SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 			// Send SOAP Message to SOAP Server
-			SOAPMessage soapResponse = soapConnection.call(createSOAPRequest(soapAction, Filial, Empresa, atualizacao), soapEndpointUrl);
+			SOAPMessage soapResponse = soapConnection.call(createSOAPRequest(soapAction, Filial, Empresa, atualizacao),
+					soapEndpointUrl);
 			// Print the SOAP Response
 			soapResponse.getAttachments();
 			System.out.println("Response SOAP Message:");
@@ -42,7 +42,8 @@ public class SoapAtualizaTitulos {
 		}
 	}
 
-	private static void createSoapEnvelope(SOAPMessage soapMessage,String Filial, String Empresa, O_ATUALIZAVELOZ atualizacao) throws SOAPException {
+	private static void createSoapEnvelope(SOAPMessage soapMessage, String Filial, String Empresa,
+			O_ATUALIZAVELOZ atualizacao) throws SOAPException {
 		SOAPPart soapPart = soapMessage.getSOAPPart();
 
 		String myNamespace = "prot";
@@ -52,7 +53,7 @@ public class SoapAtualizaTitulos {
 		envelope.addNamespaceDeclaration(myNamespace, myNamespaceURI);
 
 		// SOAP Body
-		//Cabeçalho
+		// Cabeçalho
 		SOAPBody soapBody = envelope.getBody();
 		SOAPElement soapBodyMetodo = soapBody.addChildElement("MTDATUALIZAVELOZ", myNamespace);
 		SOAPElement soapBodySeguranca = soapBodyMetodo.addChildElement("O_SEGURANCA", myNamespace);
@@ -65,7 +66,7 @@ public class SoapAtualizaTitulos {
 		soapBodyCdEmpresa.addTextNode(Empresa);
 		SOAPElement soapBodyFilial = soapBodyEmpresa.addChildElement("C_FILIAL", myNamespace);
 		soapBodyFilial.addTextNode(Filial);
-		//Atualizações
+		// Atualizações
 		SOAPElement soapBodyAtualizacao = soapBodyMetodo.addChildElement("O_ATUALIZAVELOZ", myNamespace);
 		SOAPElement soapBodyAcordos = soapBodyAtualizacao.addChildElement("E1_ACORDOS", myNamespace);
 		for (STRACORDOSVELOZ acordo : atualizacao.getE1_ACORDOS()) {
@@ -101,7 +102,8 @@ public class SoapAtualizaTitulos {
 		}
 	}
 
-	private static SOAPMessage createSOAPRequest(String soapAction, String Filial, String Empresa, O_ATUALIZAVELOZ atualizacao) throws Exception {
+	private static SOAPMessage createSOAPRequest(String soapAction, String Filial, String Empresa,
+			O_ATUALIZAVELOZ atualizacao) throws Exception {
 		String PREFERRED_PREFIX = "soapenv";
 
 		MessageFactory messageFactory = MessageFactory.newInstance();

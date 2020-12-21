@@ -1,32 +1,27 @@
+import Bean.O_ATUALIZAVELOZ;
 import Controller.AcordoController;
+import SOAP.SoapEnviaTitulos;
 import SOAP.SoapConsultaTitulos;
 
 public class Teste {
 
 	public static void main(String[] args) throws Exception {
-		AcordoController acordoController = new AcordoController();
-//		O_TITULOSVELOZ tituloVeloz = new O_TITULOSVELOZ();
-		
-//		O_ATUALIZAVELOZ acordosVeloz = new O_ATUALIZAVELOZ();
-//
-//		ArrayList<STRACORDOSVELOZ> consultaAcordos = acordoController.consultaAcordos();
-//		STRACORDOSVELOZ[] acordos = new STRACORDOSVELOZ[consultaAcordos.size()]	;
-//        consultaAcordos.toArray(acordos);
-        
-		//acordosVeloz.setSTRTITULOSVELOZ(acordos);
-		
-//		STRTITULOSVELOZ[] titulos = (STRTITULOSVELOZ[]) consultaAcordos().toArray();
-//		tituloVeloz.setSTRTITULOSVELOZ(titulos);
-		
-//		consultaAcordos();
+		String[] filiais = { "01BA", "02BA", "03BA", "04BA", "05BA" };
 
-//		String xml = acordoController.gerarXML(acordos);
+		for (String filial : filiais) {
 
-//		gerarSoap(xml);
-//        System.out.print(xml);
-//		enviarSoap();
-		new SoapConsultaTitulos().callSoapWebService("03BA", "01");
+			new SoapConsultaTitulos().callSoapWebService(filial, "01");
+			O_ATUALIZAVELOZ enviosFieb = new O_ATUALIZAVELOZ();
+
+			enviosFieb = AcordoController.enviosFieb(filial);// precisa passar a
+																// filial e as
+																// datas para o
+																// where das
+																// consultas
+
+			new SoapEnviaTitulos().callSoapWebService(filial, "01", enviosFieb);
+		}
+
 	}
-
 
 }
