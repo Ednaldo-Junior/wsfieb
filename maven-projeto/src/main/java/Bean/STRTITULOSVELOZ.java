@@ -2,7 +2,8 @@ package Bean;
 
 public class STRTITULOSVELOZ {
 	
-	String A1_BAIRRO;	
+	String A1_BAIRRO;
+	String A1_CGC;
 	String A1_CEP;
 	String A1_COMPLEM;
 	String A1_DDD;
@@ -37,7 +38,13 @@ public class STRTITULOSVELOZ {
 	String M0_CGC;
 	String M0_NOMECOM;	
 	
-
+	
+	public String getA1_CGC() {
+		return A1_CGC;
+	}
+	public void setA1_CGC(String a1_CGC) {
+		A1_CGC = a1_CGC;
+	}
 	public String getA1_BAIRRO() {
 		return A1_BAIRRO;
 	}

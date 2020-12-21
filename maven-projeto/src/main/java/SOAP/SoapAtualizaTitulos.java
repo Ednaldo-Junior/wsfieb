@@ -14,6 +14,7 @@ import javax.xml.soap.SOAPPart;
 
 import Bean.O_ATUALIZAVELOZ;
 import Bean.STRACORDOSVELOZ;
+import Bean.STRTITACORDVELOZ;
 import Configuracoes.Config;
 
 public class SoapAtualizaTitulos {
@@ -66,8 +67,6 @@ public class SoapAtualizaTitulos {
 		soapBodyFilial.addTextNode(Filial);
 		//Atualizações
 		SOAPElement soapBodyAtualizacao = soapBodyMetodo.addChildElement("O_ATUALIZAVELOZ", myNamespace);
-		SOAPElement soapBodyCGC = soapBodyAtualizacao.addChildElement("A1_CGC", myNamespace);
-		soapBodyCGC.addTextNode(atualizacao.getA1_CGC());
 		SOAPElement soapBodyAcordos = soapBodyAtualizacao.addChildElement("E1_ACORDOS", myNamespace);
 		for (STRACORDOSVELOZ acordo : atualizacao.getE1_ACORDOS()) {
 			SOAPElement soapBodyZ06_ACORDO = soapBodyAcordos.addChildElement("Z06_ACORDO", myNamespace);
@@ -83,18 +82,23 @@ public class SoapAtualizaTitulos {
 			SOAPElement soapBodyZ06_VENCTO = soapBodyAcordos.addChildElement("Z06_VENCTO", myNamespace);
 			soapBodyZ06_VENCTO.addTextNode(acordo.getZ06_VENCTO());
 		}
-		SOAPElement soapBodyE1_DESCST = soapBodyAtualizacao.addChildElement("E1_DESCST", myNamespace);
-		soapBodyE1_DESCST.addTextNode(atualizacao.getE1_DESCST());
-		SOAPElement soapBodyE1_NUM = soapBodyAtualizacao.addChildElement("E1_NUM", myNamespace);
-		soapBodyE1_NUM.addTextNode(atualizacao.getE1_NUM());
-		SOAPElement soapBodyE1_PARCELA = soapBodyAtualizacao.addChildElement("E1_PARCELA", myNamespace);
-		soapBodyE1_PARCELA.addTextNode(atualizacao.getE1_PARCELA());
-		SOAPElement soapBodyE1_PREFIXO = soapBodyAtualizacao.addChildElement("E1_PREFIXO", myNamespace);
-		soapBodyE1_PREFIXO.addTextNode(atualizacao.getE1_PREFIXO());
-		SOAPElement soapBodyE1_STATUS = soapBodyAtualizacao.addChildElement("E1_STATUS", myNamespace);
-		soapBodyE1_STATUS.addTextNode(atualizacao.getE1_STATUS());
-		SOAPElement soapBodyE1_TIPO = soapBodyAtualizacao.addChildElement("E1_TIPO", myNamespace);
-		soapBodyE1_TIPO.addTextNode(atualizacao.getE1_TIPO());
+		SOAPElement soapBodyTitAcordo = soapBodyAtualizacao.addChildElement("STRTITACORDVELOZ", myNamespace);
+		for (STRTITACORDVELOZ titulo : atualizacao.getE1_TITULOS()) {
+			SOAPElement soapBodyA1_CGC = soapBodyTitAcordo.addChildElement("A1_CGC", myNamespace);
+			soapBodyA1_CGC.addTextNode(titulo.getA1_CGC());
+			SOAPElement soapBodyE1_FSACORD = soapBodyTitAcordo.addChildElement("E1_FSACORD", myNamespace);
+			soapBodyE1_FSACORD.addTextNode(titulo.getE1_FSACORD());
+			SOAPElement soapBodyE1_NUM = soapBodyTitAcordo.addChildElement("E1_NUM", myNamespace);
+			soapBodyE1_NUM.addTextNode(titulo.getE1_NUM());
+			SOAPElement soapBodyE1_PARCELA = soapBodyTitAcordo.addChildElement("E1_PARCELA", myNamespace);
+			soapBodyE1_PARCELA.addTextNode(titulo.getE1_PARCELA());
+			SOAPElement soapBodyE1_PREFIXO = soapBodyTitAcordo.addChildElement("E1_PREFIXO", myNamespace);
+			soapBodyE1_PREFIXO.addTextNode(titulo.getE1_PREFIXO());
+			SOAPElement soapBodyE1_STATUS = soapBodyTitAcordo.addChildElement("E1_STATUS", myNamespace);
+			soapBodyE1_STATUS.addTextNode(titulo.getE1_STATUS());
+			SOAPElement soapBodyE1_TIPO = soapBodyTitAcordo.addChildElement("E1_TIPO", myNamespace);
+			soapBodyE1_TIPO.addTextNode(titulo.getE1_TIPO());
+		}
 	}
 
 	private static SOAPMessage createSOAPRequest(String soapAction, String Filial, String Empresa, O_ATUALIZAVELOZ atualizacao) throws Exception {
